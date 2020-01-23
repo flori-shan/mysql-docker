@@ -4,6 +4,7 @@ REGISTRY ?= kubedb
 BIN      := mysql
 IMAGE    := $(REGISTRY)/$(BIN)
 TAG      := $(shell git describe --exact-match --abbrev=0 2>/dev/null || echo "")
+#TAG      := 8.0.14-test2
 
 .PHONY: push
 push: container
@@ -11,7 +12,7 @@ push: container
 
 .PHONY: container
 container:
-	docker pull $(IMAGE):$(TAG)
+	docker build --pull -t $(IMAGE):$(TAG) .
 
 .PHONY: version
 version:
